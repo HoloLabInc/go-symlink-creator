@@ -1,0 +1,12 @@
+symlinks:
+  - include-meta-file: true
+    src: ..\LinkTest\Src
+    dest: ..\LinkTest\Dest
+    target:
+      - A\
+      - B
+
+  - src: ../LinkTest/Src
+    dest: ../LinkTest/Dest
+    target:
+      - C

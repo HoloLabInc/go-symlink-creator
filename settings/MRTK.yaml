@@ -1,0 +1,12 @@
+symlinks:
+  - include-meta-file: true
+    src: ..\External\MixedRealityToolkit-Unity\Assets
+    dest: ..\Assets
+    target:
+      - MixedRealityToolkit
+      - MixedRealityToolkit.SDK
+      - MixedRealityToolkit.Services
+      - MixedRealityToolkit.Providers
+      - MixedRealityToolkit.Extensions
+      - MixedRealityToolkit.Tools
+      - MixedRealityToolkit.Examples
