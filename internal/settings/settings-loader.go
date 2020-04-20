@@ -1,32 +1,12 @@
 package settings
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 
 	yaml "gopkg.in/yaml.v2"
 )
-
-var data1 = `
-symlinks:
-  - unity: true
-    src: s
-    dest: d
-    target:
-      - a
-      - b
-      - c
-`
-
-var data2 = `
-symlinks:
-  - unity: true
-    src: s
-    dest: d
-    target: d
-`
 
 type StringArray []string
 
@@ -56,12 +36,6 @@ type SymLinkSetting struct {
 	Src         string      `yaml:"src"`
 	Dest        StringArray `yaml:"dest"`
 	Target      StringArray `yaml:"target"`
-}
-
-func A() {
-	fmt.Println("a")
-	parseSettings([]byte(data2))
-	parseSettings([]byte(data1))
 }
 
 func LoadSettings(path string) (s SymLinkSettings) {
@@ -95,6 +69,5 @@ func parseSettings(data []byte) (s SymLinkSettings) {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("--- m:\n%v\n\n", s)
 	return s
 }

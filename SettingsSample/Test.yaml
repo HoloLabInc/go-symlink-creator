@@ -1,12 +1,12 @@
 symlinks:
   - include-meta-file: true
-    src: ..\LinkTest\Src
-    dest: ..\LinkTest\Dest
+    src: ..\SettingsSampleTestFolder\Src
+    dest: ..\SettingsSampleTestFolder\Dest
     target:
       - A\
       - B
 
-  - src: ../LinkTest/Src
-    dest: ../LinkTest/Dest
+  - src: ../SettingsSampleTestFolder/Src
+    dest: ../SettingsSampleTestFolder/Dest
     target:
       - C

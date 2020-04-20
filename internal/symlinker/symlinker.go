@@ -36,7 +36,6 @@ func createSymlink(base string, src string, dest string, target string) {
 
 	t := filepath.Join(basedir, src, target)
 	d := filepath.Join(basedir, dest, target)
-	fmt.Println(t, "to", d)
 
 	if !exists(t) {
 		msg := fmt.Sprintf("Target file does not exist: %s", t)
@@ -49,6 +48,7 @@ func createSymlink(base string, src string, dest string, target string) {
 		return
 	}
 
+	fmt.Printf("Create symlink from %s to %s\n", t, d)
 	err := os.Symlink(t, d)
 	if err != nil {
 		fmt.Println(err)
