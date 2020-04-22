@@ -24,6 +24,12 @@ symlinks:
       - targetFile1
       - targetFile2
 
+  # create destination folder if not exist
+  - create-dest-folder: true
+    src: \path\to\source\folder
+    dest: \path\to\nonexistent\destination\folder
+    target: targetFile
+
   # For Unity file or folder
   - include-meta-file: true    # Create symlink for .meta as well
     src: \path\to\source\folder
