@@ -31,11 +31,12 @@ type SymLinkSettings struct {
 }
 
 type SymLinkSetting struct {
-	BasePath    string
-	IncludeMeta bool        `yaml:"include-meta-file"`
-	Src         string      `yaml:"src"`
-	Dest        StringArray `yaml:"dest"`
-	Target      StringArray `yaml:"target"`
+	BasePath         string
+	IncludeMeta      bool        `yaml:"include-meta-file"`
+	CreateDestFolder bool        `yaml:"create-dest-folder"`
+	Src              string      `yaml:"src"`
+	Dest             StringArray `yaml:"dest"`
+	Target           StringArray `yaml:"target"`
 }
 
 func LoadSettings(path string) (s SymLinkSettings) {

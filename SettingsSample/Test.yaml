@@ -10,3 +10,9 @@ symlinks:
     dest: ../SettingsSampleTestFolder/Dest
     target:
       - C
+
+  - create-dest-folder: true
+    src: ../SettingsSampleTestFolder/Src
+    dest: ../SettingsSampleTestFolder/Dest/NewFolder
+    target:
+      - D

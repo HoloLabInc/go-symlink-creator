@@ -12,10 +12,10 @@ import (
 func CreateLink(s settings.SymLinkSetting) {
 	for _, dest := range s.Dest {
 		for _, target := range s.Target {
-			createSymlink(s.BasePath, s.Src, dest, target)
+			createSymlink(s.BasePath, s.Src, dest, target, s.CreateDestFolder)
 			if s.IncludeMeta {
 				metaTarget := strings.TrimRight(target, "/\\") + ".meta"
-				createSymlink(s.BasePath, s.Src, dest, metaTarget)
+				createSymlink(s.BasePath, s.Src, dest, metaTarget, s.CreateDestFolder)
 			}
 		}
 	}
@@ -31,11 +31,12 @@ func printError(msg string) {
 	fmt.Println()
 }
 
-func createSymlink(base string, src string, dest string, target string) {
+func createSymlink(base string, src string, dest string, target string, createFolder bool) {
 	basedir := filepath.Dir(base)
 
 	t := filepath.Join(basedir, src, target)
 	d := filepath.Join(basedir, dest, target)
+	destdir := filepath.Dir(d)
 
 	if !exists(t) {
 		msg := fmt.Sprintf("Target file does not exist: %s", t)
@@ -46,6 +47,19 @@ func createSymlink(base string, src string, dest string, target string) {
 	if exists(d) {
 		fmt.Println("Destination file exists:", d)
 		return
+	}
+
+	if !exists(destdir) {
+		if createFolder {
+			if err := os.MkdirAll(destdir, 0777); err != nil {
+				fmt.Println(err)
+				return
+			}
+		} else {
+			msg := fmt.Sprintf("Destination folder does not exist: %s", destdir)
+			printError(msg)
+			return
+		}
 	}
 
 	fmt.Printf("Create symlink from %s to %s\n", t, d)
