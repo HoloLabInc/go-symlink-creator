@@ -33,6 +33,9 @@ func printError(msg string) {
 
 func createSymlink(base string, src string, dest string, target string, createFolder bool) {
 	basedir := filepath.Dir(base)
+	src = strings.Replace(src, "\\", "/", -1)
+	dest = strings.Replace(dest, "\\", "/", -1)
+	target = strings.Replace(target, "\\", "/", -1)
 
 	t := filepath.Join(basedir, src, target)
 	d := filepath.Join(basedir, dest, target)
