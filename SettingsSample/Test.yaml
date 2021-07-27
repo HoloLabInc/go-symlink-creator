@@ -16,3 +16,7 @@ symlinks:
     dest: ../SettingsSampleTestFolder/Dest/NewFolder
     target:
       - D
+
+  # Rename
+  - src: ../SettingsSampleTestFolder/Src/D
+    dest: ../SettingsSampleTestFolder/Dest/D2
