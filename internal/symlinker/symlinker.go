@@ -11,11 +11,19 @@ import (
 
 func CreateLink(s settings.SymLinkSetting) {
 	for _, dest := range s.Dest {
-		for _, target := range s.Target {
-			createSymlink(s.BasePath, s.Src, dest, target, s.CreateDestFolder)
+		if len(s.Target) == 0 {
+			createSymlink(s.BasePath, s.Src, dest, s.CreateDestFolder)
 			if s.IncludeMeta {
-				metaTarget := strings.TrimRight(target, "/\\") + ".meta"
-				createSymlink(s.BasePath, s.Src, dest, metaTarget, s.CreateDestFolder)
+				metaSrc := strings.TrimRight(s.Src, "/\\") + ".meta"
+				createSymlink(s.BasePath, metaSrc, dest, s.CreateDestFolder)
+			}
+		} else {
+			for _, target := range s.Target {
+				createTargetSymlink(s.BasePath, s.Src, dest, target, s.CreateDestFolder)
+				if s.IncludeMeta {
+					metaTarget := strings.TrimRight(target, "/\\") + ".meta"
+					createTargetSymlink(s.BasePath, s.Src, dest, metaTarget, s.CreateDestFolder)
+				}
 			}
 		}
 	}
@@ -31,14 +39,13 @@ func printError(msg string) {
 	fmt.Println()
 }
 
-func createSymlink(base string, src string, dest string, target string, createFolder bool) {
+func createSymlink(base string, src string, dest string, createFolder bool) {
 	basedir := filepath.Dir(base)
 	src = strings.Replace(src, "\\", "/", -1)
 	dest = strings.Replace(dest, "\\", "/", -1)
-	target = strings.Replace(target, "\\", "/", -1)
 
-	t := filepath.Join(basedir, src, target)
-	d := filepath.Join(basedir, dest, target)
+	t := filepath.Join(basedir, src)
+	d := filepath.Join(basedir, dest)
 	destdir := filepath.Dir(d)
 
 	if !exists(t) {
@@ -70,4 +77,10 @@ func createSymlink(base string, src string, dest string, target string, createFo
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+func createTargetSymlink(base string, src string, dest string, target string, createFolder bool) {
+	s := filepath.Join(src, target)
+	d := filepath.Join(dest, target)
+	createSymlink(base, s, d, createFolder)
 }
